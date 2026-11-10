@@ -185,13 +185,6 @@ GLOBAL_GEODATABASE = [
 {"name": "Queenstown / Lake Wakatipu", "lat": -45.0312, "lon": 168.6626, "country": "New Zealand", "terrain": "lake_alpine", "elevation_m": 310}
 ]
 
-=============================================================================
-
-
-STAGE 1: EXIF HARDWARE GPS EXTRACTION
-
-
-=============================================================================
 
 def parse_dms_rational(dms, ref):
 try:
@@ -272,13 +265,7 @@ except Exception:
 pass
 return result
 
-=============================================================================
 
-
-STAGE 2: ASTRONAVIGATION & SHADOW MATHEMATICS (SKYFIELD & NUMPY)
-
-
-=============================================================================
 
 def compute_solar_declination_eot(dt_utc: datetime.datetime):
 day_of_year = dt_utc.timetuple().tm_yday
@@ -359,13 +346,6 @@ return {
 "best_candidate": evaluated_candidates[0] if evaluated_candidates else None
 }
 
-=============================================================================
-
-
-STAGE 3: OPEN VISUAL RECON (OPENCV FEATURE MATCHING & OVERPASS OSM)
-
-
-=============================================================================
 
 def perform_opencv_visual_recon(image: Image.Image):
 img_np = np.array(image.convert("RGB"))
@@ -477,13 +457,6 @@ icon_name = "crosshairs" if primary_stage == 1 else ("tint" if primary_stage == 
 folium.Marker(location=[resolved_lat, resolved_lon], icon=folium.Icon(color=pin_color, icon=icon_name, prefix="fa"), popup=f"Resolved Location Stage {primary_stage}").add_to(m)
 return m
 
-=============================================================================
-
-
-MAIN STREAMLIT APPLICATION INTERFACE
-
-
-=============================================================================
 
 def main():
 st.markdown('🛰️ Zero-Config Geo-Location Finder', unsafe_allow_html=True)
