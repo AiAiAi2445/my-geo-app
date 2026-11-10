@@ -536,11 +536,17 @@ def perform_opencv_visual_recon(image: Image.Image):
     ground_shadow_lines = []
     
     if lines is not None:
-        for line in lines:
-            x1, y1, x2, y2 = line[0]
+    for line in lines:
+        try:
+            if len(line) > 0 and len(line[0]) == 4:
+                x1, y1, x2, y2 = line[0]
             dx = abs(x2 - x1)
             dy = abs(y2 - y1)
             angle_deg = np.degrees(np.arctan2(dy, dx))
+          elif len(line) == 4:
+                x1, y1, x2, y2 = line
+        except Exception:
+            continue
             
             # Vertical object (pole, wall, person edge)
             if angle_deg > 65:
